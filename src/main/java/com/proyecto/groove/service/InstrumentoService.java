@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.groove.repository.InstrumentoRepository;
 import com.proyecto.groove.model.Instrumento;
+import com.proyecto.groove.model.Producto;
+
 import jakarta.transaction.Transactional;
 import java.util.List;
 
@@ -29,10 +31,20 @@ public class InstrumentoService {
         return instrumento;
     }
 
-    public Instrumento save(Instrumento instrumento){
-        if (instrumento.getProducto() != null && instrumento.getProducto().getId() != null){
-            instrumento.setId(instrumento.getProducto().getId());
+    public Instrumento save(Instrumento instrumento) {
+        if (instrumento.getProducto() == null || instrumento.getProducto().getId() == null) {
+            throw new RuntimeException("ERROR: Debes indicar el ID del Producto padre.");
         }
+
+        Producto productoPadre = productoService.findById(instrumento.getProducto().getId()); //solucion parche a problemas con el id que no supe resolver :P
+
+        if (productoPadre == null) {
+            throw new RuntimeException("ERROR: No existe un Producto con el ID " + instrumento.getProducto().getId());
+        }
+
+        instrumento.setProducto(productoPadre); 
+        instrumento.setId(productoPadre.getId());
+
         return instrumentoRepository.save(instrumento);
     }
 
