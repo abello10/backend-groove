@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,12 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Instrumento {
     @Id
-    private Integer id;
+    private Integer productoId;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 
    // @Column(name = "nombreInstrumento", length = 80, nullable = false)
     //private String nombreInstrumento;

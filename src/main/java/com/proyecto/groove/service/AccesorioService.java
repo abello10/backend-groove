@@ -36,7 +36,7 @@ public class AccesorioService {
     }
 
     public Accesorio partialUpdate(Accesorio accesorio){
-        Accesorio existingAccesorio = accesorioRepository.findById(accesorio.getId()).orElse(null);
+        Accesorio existingAccesorio = accesorioRepository.findById(accesorio.getProductoId()).orElse(null);
         if (existingAccesorio != null){
 
             if(accesorio.getMarca() != null){

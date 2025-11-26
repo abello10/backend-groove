@@ -16,11 +16,11 @@ public class InstrumentoModelAssembler implements RepresentationModelAssembler<I
     @Override
     public EntityModel<Instrumento> toModel(Instrumento instrumento){
         return EntityModel.of(instrumento,
-            linkTo(methodOn(InstrumentoControllerV2.class).getInstrumentoById(instrumento.getId())).withSelfRel(),
+            linkTo(methodOn(InstrumentoControllerV2.class).getInstrumentoById(instrumento.getProductoId())).withSelfRel(),
             linkTo(methodOn(InstrumentoControllerV2.class).getAllInstrumentos()).withRel("instrumentos"),
-            linkTo(methodOn(InstrumentoControllerV2.class).updateInstrumento(instrumento.getId(),instrumento)).withRel("actualizar"),
-            linkTo(methodOn(InstrumentoControllerV2.class).deleteInstrumento(instrumento.getId())).withRel("eliminar"),
-            linkTo(methodOn(InstrumentoControllerV2.class).partialUpdateInstrumento(instrumento.getId(), instrumento)).withRel("reemplazar una línea")
+            linkTo(methodOn(InstrumentoControllerV2.class).updateInstrumento(instrumento.getProductoId(),instrumento)).withRel("actualizar"),
+            linkTo(methodOn(InstrumentoControllerV2.class).deleteInstrumento(instrumento.getProductoId())).withRel("eliminar"),
+            linkTo(methodOn(InstrumentoControllerV2.class).partialUpdateInstrumento(instrumento.getProductoId(), instrumento)).withRel("reemplazar una línea")
            
         );
     }

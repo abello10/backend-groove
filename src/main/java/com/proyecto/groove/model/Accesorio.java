@@ -3,6 +3,9 @@ package com.proyecto.groove.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +16,12 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Accesorio {
     @Id
-    private Integer id;
+    private Integer productoId;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 
     //@Column(name = "nombreAccesorio", length = 80, nullable = false)
     //private String nombreAccesorio;

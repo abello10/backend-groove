@@ -6,9 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.CascadeType;
@@ -38,16 +37,13 @@ public class Producto {
     @Column(name = "stockProducto", nullable = false)
     private Integer stock;
 
-    @ManyToOne
-    @JoinColumn(name="producto_accesorioid")
+    @OneToOne(mappedBy = "producto", cascade = CascadeType.ALL)
     private Accesorio accesorio;
 
-    @ManyToOne
-    @JoinColumn(name="producto_instrumentoid")
+    @OneToOne(mappedBy = "producto", cascade = CascadeType.ALL)
     private Instrumento instrumento;
 
-    @ManyToOne
-    @JoinColumn(name="producto_musicaid")
+    @OneToOne(mappedBy = "producto", cascade = CascadeType.ALL)
     private Musica musica;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)

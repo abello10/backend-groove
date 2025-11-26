@@ -16,11 +16,11 @@ public class MusicaModelAssembler implements RepresentationModelAssembler<Musica
     @Override
     public EntityModel<Musica> toModel(Musica musica){
         return EntityModel.of(musica,
-             linkTo(methodOn(MusicaControllerV2.class).getMusicaById(musica.getId())).withSelfRel(),
+             linkTo(methodOn(MusicaControllerV2.class).getMusicaById(musica.getProductoId())).withSelfRel(),
             linkTo(methodOn(MusicaControllerV2.class).getAllMusica()).withRel("musica"),
-            linkTo(methodOn(MusicaControllerV2.class).updateMusica(musica.getId(),musica)).withRel("actualizar"),
-            linkTo(methodOn(MusicaControllerV2.class).deleteMusica(musica.getId())).withRel("eliminar"),
-            linkTo(methodOn(MusicaControllerV2.class).partialUpdateMusica(musica.getId(), musica)).withRel("reemplazar una línea")
+            linkTo(methodOn(MusicaControllerV2.class).updateMusica(musica.getProductoId(),musica)).withRel("actualizar"),
+            linkTo(methodOn(MusicaControllerV2.class).deleteMusica(musica.getProductoId())).withRel("eliminar"),
+            linkTo(methodOn(MusicaControllerV2.class).partialUpdateMusica(musica.getProductoId(), musica)).withRel("reemplazar una línea")
            
            
         );

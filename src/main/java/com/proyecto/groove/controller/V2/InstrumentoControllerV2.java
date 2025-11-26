@@ -71,14 +71,14 @@ public class InstrumentoControllerV2 {
     public ResponseEntity<EntityModel<Instrumento>> createInstrumento(@RequestBody Instrumento instrumento) {
         Instrumento newInstrumento = instrumentoService.save(instrumento);
         return ResponseEntity
-            .created(linkTo(methodOn(InstrumentoControllerV2.class).getInstrumentoById(newInstrumento.getId())).toUri())
+            .created(linkTo(methodOn(InstrumentoControllerV2.class).getInstrumentoById(newInstrumento.getProductoId())).toUri())
             .body(assembler.toModel(newInstrumento));
     }
 
     @PutMapping(value = "/{id}",produces = MediaTypes.HAL_JSON_VALUE)
     @Operation(summary = "Actualizar instrumento", description = "Permite actualizar un instrumento ya creado")
     public ResponseEntity<EntityModel<Instrumento>> updateInstrumento(@PathVariable Integer id, @RequestBody Instrumento instrumento) {
-        instrumento.setId(id);
+        instrumento.setProductoId(id);
         Instrumento updatedInstrumento = instrumentoService.save(instrumento);
         return ResponseEntity.ok(assembler.toModel(updatedInstrumento));
     }

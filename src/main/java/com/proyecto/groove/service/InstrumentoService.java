@@ -8,6 +8,7 @@ import com.proyecto.groove.model.Instrumento;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
+
 @Service
 @Transactional
 @SuppressWarnings("null")
@@ -29,11 +30,14 @@ public class InstrumentoService {
     }
 
     public Instrumento save(Instrumento instrumento){
+        if (instrumento.getProducto() != null && instrumento.getProducto().getId() != null){
+            instrumento.setProductoId(instrumento.getProducto().getId());
+        }
         return instrumentoRepository.save(instrumento);
     }
 
     public Instrumento partialUpdate(Instrumento instrumento){
-        Instrumento existingInstrumento = instrumentoRepository.findById(instrumento.getId()).orElse(null);
+        Instrumento existingInstrumento = instrumentoRepository.findById(instrumento.getProductoId()).orElse(null);
         if (existingInstrumento != null){
             if(instrumento.getAnoFabricacion() != null){
                 existingInstrumento.setAnoFabricacion(instrumento.getAnoFabricacion());
@@ -64,7 +68,7 @@ public class InstrumentoService {
         List<Instrumento> instrumentos = instrumentoRepository.findAll();
         for (Instrumento instrumento : instrumentos){
             if(instrumento.getTipo() != null && instrumento.getTipo().getId().equals(tipoId)){
-                instrumentoRepository.deleteById(instrumento.getId());
+                instrumentoRepository.deleteById(instrumento.getProductoId());
             }
         }
     }
