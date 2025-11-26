@@ -11,8 +11,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.CascadeType;
 import java.util.List;
 
@@ -28,8 +26,8 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@Column(name = "nombreProducto", length = 80, nullable = false)
-    //private String nombre;
+    @Column(name = "nombreProducto", length = 80, nullable = false)
+    private String nombre;
 
     @Column(name = "descripcionProducto", length = 300, nullable = false)
     private String descripcion;
@@ -58,18 +56,18 @@ public class Producto {
 
 
 
-    @PrePersist
-    @PreUpdate
-    private void validarUnSoloTipo(){
-        int count = 0;
-        if(accesorio != null) count++;
-        if(instrumento != null) count++;
-        if(musica != null) count++;
+    //@PrePersist
+    //@PreUpdate
+    //private void validarUnSoloTipo(){
+      //  int count = 0;
+        //if(accesorio != null) count++;
+        //if(instrumento != null) count++;
+        //if(musica != null) count++;
 
-        if (count != 1){
-            throw new IllegalStateException(
-                "El producto debe ser de un solo tipo"
-            );
-        }
-    }
+        //if (count != 1){
+          //  throw new IllegalStateException(
+            //    "El producto debe ser de un solo tipo"
+           // );
+        //}
+    //}
 }

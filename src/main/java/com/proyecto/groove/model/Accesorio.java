@@ -15,8 +15,8 @@ public class Accesorio {
     @Id
     private Integer id;
 
-    @Column(name = "nombreAccesorio", length = 80, nullable = false)
-    private String nombreAccesorio;
+    //@Column(name = "nombreAccesorio", length = 80, nullable = false)
+    //private String nombreAccesorio;
 
     @Column(name = "marcaAccesorio", length = 50, nullable = false)
     private String marca;

@@ -15,8 +15,8 @@ public class Musica {
     @Id
     private Integer id;
 
-    @Column(name = "nombreMusica", length = 80, nullable = false)
-    private String nombreMusica;
+    //@Column(name = "nombreMusica", length = 80, nullable = false)
+    //private String nombreMusica;
 
     @Column(name = "artistaMusica", length = 80, nullable = false)
     private String artista;

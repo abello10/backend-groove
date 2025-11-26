@@ -17,8 +17,8 @@ public class Instrumento {
     @Id
     private Integer id;
 
-    @Column(name = "nombreInstrumento", length = 80, nullable = false)
-    private String nombreInstrumento;
+   // @Column(name = "nombreInstrumento", length = 80, nullable = false)
+    //private String nombreInstrumento;
 
     @Column(name = "marcaInstrumento", length = 50, nullable = false)
     private String marca;
