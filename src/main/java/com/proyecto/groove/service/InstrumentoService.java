@@ -26,25 +26,29 @@ public class InstrumentoService {
         return instrumentoRepository.findById(id).orElse(null);
     }
 
-    public Instrumento save(Instrumento instrumento){
+    public Instrumento save(Instrumento instrumento) {
         
         if (instrumento.getProducto() == null || instrumento.getProducto().getId() == null) {
-            throw new RuntimeException("ERROR: No se puede crear un Instrumento sin asociarlo a un Producto (ID).");
-        }
-        Integer idPadre = instrumento.getProducto().getId();
-        
-        Producto padreReal = productoService.findById(idPadre);
-        if (padreReal == null) {
-             throw new RuntimeException("ERROR: El Producto con ID " + idPadre + " no existe.");
+            throw new RuntimeException("ERROR: Debes enviar el ID del Producto padre.");
         }
 
-        instrumento.setId(idPadre); 
+        Producto productoPadre = productoService.findById(instrumento.getProducto().getId());
         
-        instrumento.setProducto(padreReal);
+        if (productoPadre == null) {
+             throw new RuntimeException("ERROR: Producto no encontrado.");
+        }
 
-        return instrumentoRepository.save(instrumento);
+        productoPadre.setInstrumento(instrumento);
+        
+        instrumento.setProducto(productoPadre);
+        instrumento.setId(productoPadre.getId());
+
+ 
+        productoService.save(productoPadre);
+
+        return instrumento;
     }
-    // 👆 ---------------------------------- 👆
+    // 👆 ------------------------------------------- 👆
 
     public Instrumento partialUpdate(Instrumento instrumento){
         Instrumento existingInstrumento = instrumentoRepository.findById(instrumento.getId()).orElse(null);
