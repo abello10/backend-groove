@@ -69,14 +69,14 @@ public class AccesorioControllerV2 {
     public ResponseEntity<EntityModel<Accesorio>> createAccesorio(@RequestBody Accesorio accesorio) {
         Accesorio newAccesorio = accesorioService.save(accesorio);
         return ResponseEntity
-            .created(linkTo(methodOn(AccesorioControllerV2.class).getAccesorioById(newAccesorio.getProductoId())).toUri())
+            .created(linkTo(methodOn(AccesorioControllerV2.class).getAccesorioById(newAccesorio.getId())).toUri())
             .body(assembler.toModel(newAccesorio));
     }
 
     @PutMapping(value = "/{id}",produces = MediaTypes.HAL_JSON_VALUE)
     @Operation(summary = "Actualizar accesorio", description = "Permite actualizar un accesorio ya creado")
     public ResponseEntity<EntityModel<Accesorio>> updateAccesorio(@PathVariable Integer id, @RequestBody Accesorio accesorio) {
-        accesorio.setProductoId(id);
+        accesorio.setId(id);
         Accesorio updatedAccesorio = accesorioService.save(accesorio);
         return ResponseEntity.ok(assembler.toModel(updatedAccesorio));
     }

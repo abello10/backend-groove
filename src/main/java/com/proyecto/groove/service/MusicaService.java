@@ -35,7 +35,7 @@ public class MusicaService {
     }
 
     public Musica partialUpdate(Musica musica){
-        Musica existingMusica = musicaRepository.findById(musica.getProductoId()).orElse(null);
+        Musica existingMusica = musicaRepository.findById(musica.getId()).orElse(null);
         if (existingMusica != null){
             if (musica.getAnoLanzamiento() != null){
                 existingMusica.setAnoLanzamiento(musica.getAnoLanzamiento());

@@ -50,14 +50,14 @@ public class InstrumentoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Instrumento> updateInstrumento(@PathVariable Integer id, @RequestBody Instrumento instrumento) {
-        instrumento.setProductoId(id);
+        instrumento.setId(id);
         Instrumento updatedInstrumento = instrumentoService.save(instrumento);
         return ResponseEntity.ok(updatedInstrumento);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Instrumento> partialUpdateInstrumento(@PathVariable Integer id, @RequestBody Instrumento instrumento) {
-        instrumento.setProductoId(id);
+        instrumento.setId(id);
         Instrumento updatedInstrumento = instrumentoService.partialUpdate(instrumento);
 
         if (updatedInstrumento == null) {

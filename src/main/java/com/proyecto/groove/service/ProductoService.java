@@ -78,7 +78,7 @@ public class ProductoService {
     public void deleteByAccesorioId(Integer accesorioId){
         List<Producto> productos = productoRepository.findAll();
         for (Producto producto : productos){
-            if (producto.getAccesorio() != null && producto.getAccesorio().getProductoId().equals(accesorioId)){
+            if (producto.getAccesorio() != null && producto.getAccesorio().getId().equals(accesorioId)){
                 productoRepository.deleteById(producto.getId());
             }
         }
@@ -87,7 +87,7 @@ public class ProductoService {
     public void deleteByInstrumentoId(Integer instrumentoId){
         List<Producto> productos = productoRepository.findAll();
         for (Producto producto : productos){
-            if (producto.getInstrumento() != null && producto.getInstrumento().getProductoId().equals(instrumentoId)){
+            if (producto.getInstrumento() != null && producto.getInstrumento().getId().equals(instrumentoId)){
                 productoRepository.deleteById(producto.getId());
             }
         }
@@ -96,7 +96,7 @@ public class ProductoService {
     public void deleteByMusicaId(Integer musicaId){
         List<Producto> productos = productoRepository.findAll();
         for (Producto producto : productos){
-            if (producto.getMusica() != null && producto.getMusica().getProductoId().equals(musicaId)){
+            if (producto.getMusica() != null && producto.getMusica().getId().equals(musicaId)){
                 productoRepository.deleteById(producto.getId());
             }
         }

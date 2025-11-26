@@ -50,14 +50,14 @@ public class MusicaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Musica> updateMusica(@PathVariable Integer id, @RequestBody Musica musica) {
-        musica.setProductoId(id);
+        musica.setId(id);
         Musica updatedMusica = musicaService.save(musica);
         return ResponseEntity.ok(updatedMusica);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Musica> partialUpdateMusica(@PathVariable Integer id, @RequestBody Musica musica) {
-        musica.setProductoId(id);
+        musica.setId(id);
         Musica updatedMusica = musicaService.partialUpdate(musica);
 
         if (updatedMusica == null) {

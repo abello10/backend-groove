@@ -71,14 +71,14 @@ public class MusicaControllerV2 {
     public ResponseEntity<EntityModel<Musica>> createMusica(@RequestBody Musica musica) {
         Musica newMusica = musicaService.save(musica);
         return ResponseEntity
-            .created(linkTo(methodOn(MusicaControllerV2.class).getMusicaById(newMusica.getProductoId())).toUri())
+            .created(linkTo(methodOn(MusicaControllerV2.class).getMusicaById(newMusica.getId())).toUri())
             .body(assembler.toModel(newMusica));
     }
 
     @PutMapping(value = "/{id}",produces = MediaTypes.HAL_JSON_VALUE)
     @Operation(summary = "Actualizar musica", description = "Permite actualizar musica ya creada")
     public ResponseEntity<EntityModel<Musica>> updateMusica(@PathVariable Integer id, @RequestBody Musica musica) {
-        musica.setProductoId(id);
+        musica.setId(id);
         Musica updatedMusica = musicaService.save(musica);
         return ResponseEntity.ok(assembler.toModel(updatedMusica));
     }

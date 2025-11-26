@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Musica {
     @Id
-    private Integer productoId;
+    private Integer Id;
 
     @OneToOne
     @MapsId

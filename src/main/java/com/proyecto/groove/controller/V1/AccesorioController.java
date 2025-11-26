@@ -51,14 +51,14 @@ public class AccesorioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Accesorio> updateAccesorio(@PathVariable Integer id, @RequestBody Accesorio accesorio) {
-        accesorio.setProductoId(id);
+        accesorio.setId(id);
         Accesorio updatedAccesorio = accesorioService.save(accesorio);
         return ResponseEntity.ok(updatedAccesorio);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Accesorio> partialUpdateAccesorio(@PathVariable Integer id, @RequestBody Accesorio accesorio) {
-        accesorio.setProductoId(id);
+        accesorio.setId(id);
         
         Accesorio updatedAccesorio = accesorioService.partialUpdate(accesorio);
         
