@@ -2,18 +2,14 @@ package com.proyecto.groove.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.proyecto.groove.repository.InstrumentoRepository;
 import com.proyecto.groove.model.Instrumento;
 import com.proyecto.groove.model.Producto;
-
 import jakarta.transaction.Transactional;
 import java.util.List;
 
-
 @Service
 @Transactional
-@SuppressWarnings("null")
 public class InstrumentoService {
 
     @Autowired
@@ -27,45 +23,38 @@ public class InstrumentoService {
     }
 
     public Instrumento findById(Integer id){
-        Instrumento instrumento = instrumentoRepository.findById(id).orElse(null);
-        return instrumento;
+        return instrumentoRepository.findById(id).orElse(null);
     }
 
-    public Instrumento save(Instrumento instrumento) {
+    public Instrumento save(Instrumento instrumento){
+        
         if (instrumento.getProducto() == null || instrumento.getProducto().getId() == null) {
-            throw new RuntimeException("ERROR: Debes indicar el ID del Producto padre.");
+            throw new RuntimeException("ERROR: No se puede crear un Instrumento sin asociarlo a un Producto (ID).");
+        }
+        Integer idPadre = instrumento.getProducto().getId();
+        
+        Producto padreReal = productoService.findById(idPadre);
+        if (padreReal == null) {
+             throw new RuntimeException("ERROR: El Producto con ID " + idPadre + " no existe.");
         }
 
-        Producto productoPadre = productoService.findById(instrumento.getProducto().getId()); //solucion parche a problemas con el id que no supe resolver :P
-
-        if (productoPadre == null) {
-            throw new RuntimeException("ERROR: No existe un Producto con el ID " + instrumento.getProducto().getId());
-        }
-
-        instrumento.setProducto(productoPadre); 
-        instrumento.setId(productoPadre.getId());
+        instrumento.setId(idPadre); 
+        
+        instrumento.setProducto(padreReal);
 
         return instrumentoRepository.save(instrumento);
     }
+    // 👆 ---------------------------------- 👆
 
     public Instrumento partialUpdate(Instrumento instrumento){
         Instrumento existingInstrumento = instrumentoRepository.findById(instrumento.getId()).orElse(null);
+        
         if (existingInstrumento != null){
-            if(instrumento.getAnoFabricacion() != null){
-                existingInstrumento.setAnoFabricacion(instrumento.getAnoFabricacion());
-            }
-
-            if(instrumento.getTipo() != null){
-                existingInstrumento.setTipo(instrumento.getTipo());
-            }
-
-            if(instrumento.getMarca() != null){
-                existingInstrumento.setMarca(instrumento.getMarca());
-            }
-
-            if(instrumento.getModelo() != null){
-                existingInstrumento.setModelo(instrumento.getModelo());
-            }
+            if(instrumento.getAnoFabricacion() != null) existingInstrumento.setAnoFabricacion(instrumento.getAnoFabricacion());
+            if(instrumento.getTipo() != null) existingInstrumento.setTipo(instrumento.getTipo());
+            if(instrumento.getMarca() != null) existingInstrumento.setMarca(instrumento.getMarca());
+            if(instrumento.getModelo() != null) existingInstrumento.setModelo(instrumento.getModelo());
+            
             return instrumentoRepository.save(existingInstrumento);
         }
         return null;
@@ -88,5 +77,4 @@ public class InstrumentoService {
     public List<Instrumento> findByTipoId(Integer tipoId) {
         return instrumentoRepository.findByTipoId(tipoId);
     }
-
 }
