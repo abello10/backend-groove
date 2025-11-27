@@ -33,12 +33,22 @@ public class ProductoService {
     }
 
     public Producto save(Producto producto){
+        if (producto.getImagenes() != null){
+            for (com.proyecto.groove.model.Imagen img : producto.getImagenes()){
+                img.setProducto(producto);
+            }
+        }
         return productoRepository.save(producto);
     }
 
     public Producto partialUpdate(Producto producto){
         Producto existingProducto = productoRepository.findById(producto.getId()).orElse(null);
         if (existingProducto != null){
+
+            if(producto.getNombre() != null){
+                existingProducto.setNombre(producto.getNombre());
+            }
+
             if(producto.getPrecio() != null){
                 existingProducto.setPrecio(producto.getPrecio());
             }
@@ -49,6 +59,13 @@ public class ProductoService {
 
             if(producto.getDescripcion() != null){
                 existingProducto.setDescripcion(producto.getDescripcion());
+            }
+
+            if (producto.getImagenes() != null) {
+                for (com.proyecto.groove.model.Imagen img : producto.getImagenes()) {
+                    img.setProducto(existingProducto);
+                }
+                existingProducto.setImagenes(producto.getImagenes());
             }
 
             return productoRepository.save(existingProducto);  
