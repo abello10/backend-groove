@@ -12,11 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto,Integer>{
-
-        List<Producto> findByAccesorioId(Integer accesorioId);
-
-        List<Producto> findByInstrumentoId(Integer instrumentoId);
-
-        List<Producto> findByMusicaId(Integer musicaId);
+        
+        List<Producto> findByTipoId(Integer id);
     
 }

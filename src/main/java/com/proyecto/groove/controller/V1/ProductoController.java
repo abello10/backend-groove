@@ -80,22 +80,4 @@ public class ProductoController {
     }
 
 
-    //relaciones
-    @GetMapping("/accesorios/{accesorioId}")
-    public ResponseEntity<List<Producto>> getByAccesorio(@PathVariable Integer accesorioId) {
-        List<Producto> productos = productoService.findByAccesorioId(accesorioId);
-        return productos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(productos);
-    }
-
-    @GetMapping("/instrumentos/{instrumentoId}")
-    public ResponseEntity<List<Producto>> getByInstrumento(@PathVariable Integer instrumentoId) {
-        List<Producto> productos = productoService.findByInstrumentoId(instrumentoId);
-        return productos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(productos);
-    }
-
-    @GetMapping("/musicas/{musicaId}")
-    public ResponseEntity<List<Producto>> getByMusica(@PathVariable Integer musicaId) {
-        List<Producto> productos = productoService.findByMusicaId(musicaId);
-        return productos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(productos);
-    }
 }

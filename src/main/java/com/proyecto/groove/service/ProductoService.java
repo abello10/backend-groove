@@ -71,18 +71,6 @@ public class ProductoService {
     }
 
 
-    public List<Producto> findByAccesorioId(Integer accesorioId){
-        return productoRepository.findByAccesorioId(accesorioId);
-    }
-
-    public List<Producto> findByInstrumentoId(Integer instrumentoId){
-        return productoRepository.findByInstrumentoId(instrumentoId);
-    }
-
-    public List<Producto> findByMusicaId(Integer musicaId){
-        return productoRepository.findByMusicaId(musicaId);
-    }
-
     
 
 
