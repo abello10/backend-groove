@@ -1,5 +1,7 @@
 package com.proyecto.groove.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,5 +27,6 @@ public class Imagen {
 
     @ManyToOne
     @JoinColumn(name = "imagen_productoid")
+    @JsonIgnore
     private Producto producto;
 }
