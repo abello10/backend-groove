@@ -43,18 +43,6 @@ public class ProductoService {
                 existingProducto.setPrecio(producto.getPrecio());
             }
 
-            if(producto.getAccesorio() != null){
-                existingProducto.setAccesorio(producto.getAccesorio());
-            }
-
-            if(producto.getInstrumento() != null){
-                existingProducto.setInstrumento(producto.getInstrumento());
-            }
-
-            if(producto.getMusica() != null){
-                existingProducto.setMusica(producto.getMusica());
-            }
-
             if(producto.getStock() != null){
                 existingProducto.setStock(producto.getStock());
             }
@@ -73,36 +61,15 @@ public class ProductoService {
       imagenService.deleteByProductoId(id); 
       productoRepository.deleteById(id);
 }
-
-
-    public void deleteByAccesorioId(Integer accesorioId){
+      public void deleteByTipoId(Integer tipoId){
         List<Producto> productos = productoRepository.findAll();
         for (Producto producto : productos){
-            if (producto.getAccesorio() != null && producto.getAccesorio().getId().equals(accesorioId)){
+            if(producto.getTipo() != null && producto.getTipo().getId().equals(tipoId)){
                 productoRepository.deleteById(producto.getId());
             }
         }
     }
 
-    public void deleteByInstrumentoId(Integer instrumentoId){
-        List<Producto> productos = productoRepository.findAll();
-        for (Producto producto : productos){
-            if (producto.getInstrumento() != null && producto.getInstrumento().getId().equals(instrumentoId)){
-                productoRepository.deleteById(producto.getId());
-            }
-        }
-    }
-
-    public void deleteByMusicaId(Integer musicaId){
-        List<Producto> productos = productoRepository.findAll();
-        for (Producto producto : productos){
-            if (producto.getMusica() != null && producto.getMusica().getId().equals(musicaId)){
-                productoRepository.deleteById(producto.getId());
-            }
-        }
-    }
-
-   
 
     public List<Producto> findByAccesorioId(Integer accesorioId){
         return productoRepository.findByAccesorioId(accesorioId);

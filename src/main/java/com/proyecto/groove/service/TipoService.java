@@ -17,7 +17,7 @@ public class TipoService {
     private TipoRepository tipoRepository;
 
     @Autowired
-    private InstrumentoService instrumentoService;
+    private ProductoService productoService;
 
     public List<Tipo> findAll(){
         return tipoRepository.findAll();
@@ -57,7 +57,7 @@ public class TipoService {
     }
 
     public void deleteById(Integer id){
-        instrumentoService.deleteByTipoId(id);
+        productoService.deleteByTipoId(id);
         tipoRepository.deleteById(id);
     }
 
