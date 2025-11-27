@@ -101,16 +101,26 @@ public class UsuarioService {
             usuarioRepository.save(usuario);
         }
     }
-}
-
     
-
+}
     public List<Usuario> findByDireccionId(Integer direccionId) {
         return usuarioRepository.findByDireccionId(direccionId);
     }
 
     public List<Usuario> findByRolId(Integer rolId) {
         return usuarioRepository.findByRolId(rolId);
+    }
+
+    public Usuario login(String correo, String contrasenaOg){
+        Usuario usuario = usuarioRepository.findByCorreo(correo);
+
+        if (usuario == null){
+            throw new RuntimeException("Usuario no encontrado");
+        }
+        if (!passwordEncoder.matches(contrasenaOg, usuario.getContrasena())){
+            throw new RuntimeException("Contraseña incorrecta");
+        }
+        return usuario;
     }
 
     

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.groove.model.Usuario;
 import com.proyecto.groove.service.UsuarioService;
+import com.proyecto.groove.dto.LoginRequest;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
@@ -100,4 +101,11 @@ public class UsuarioController {
         }
         return ResponseEntity.ok(usuarios);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity <Usuario> login(@RequestBody LoginRequest loginRequest) {
+        Usuario usuario = usuarioService.login(loginRequest.getCorreo(), loginRequest.getContrasena());
+        return ResponseEntity.ok(usuario);
+    }
+    
 }
