@@ -17,7 +17,5 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer>{
         List<Producto> findByTipoId(Integer tipo);
 
         List<Producto> findByNombre(String nombre);
-
-        List<Producto> findByPrecio(Sort sort);
     
 }
