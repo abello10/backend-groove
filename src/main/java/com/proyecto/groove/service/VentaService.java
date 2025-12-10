@@ -6,8 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
+
 import com.proyecto.groove.repository.VentaRepository;
+import com.proyecto.groove.repository.ProductoRepository; 
 import com.proyecto.groove.model.Venta;
+import com.proyecto.groove.model.Producto; 
+import com.proyecto.groove.model.ProductoVenta;
 
 
 @Service
@@ -16,6 +20,9 @@ import com.proyecto.groove.model.Venta;
 public class VentaService {
     @Autowired
     private VentaRepository ventaRepository;
+
+    @Autowired
+    private ProductoRepository productoRepository;
 
     @Autowired
     private ProductoVentaService productoVentaService;
@@ -31,9 +38,28 @@ public class VentaService {
     }
 
     public Venta save(Venta venta){
-        if (venta.getFecha() == null){
+            if (venta.getFecha() == null){
             venta.setFecha(LocalDateTime.now());
         }
+
+        
+        if (venta.getProductos() != null) { 
+            for (ProductoVenta detalle : venta.getProductos()) {
+                
+                Producto productoBD = productoRepository.findById(detalle.getProducto().getId())
+                        .orElseThrow(() -> new RuntimeException("Error: Producto no encontrado (ID: " + detalle.getProducto().getId() + ")"));
+
+                if (productoBD.getStock() < detalle.getCantidad()) {
+                    throw new RuntimeException("Stock insuficiente para: " + productoBD.getNombre() + ". Disponible: " + productoBD.getStock());
+                }
+
+                int nuevoStock = productoBD.getStock() - detalle.getCantidad();
+                productoBD.setStock(nuevoStock);
+
+                productoRepository.save(productoBD);
+            }
+        }
+
         return ventaRepository.save(venta);
     }
 
@@ -64,7 +90,7 @@ public class VentaService {
       public void deleteById(Integer id) {
       productoVentaService.deleteByVentaId(id); 
       ventaRepository.deleteById(id);
-}
+    }
 
 
     public void deleteByMetodoEnvioId(Integer metodoEnvioId){
@@ -107,7 +133,5 @@ public class VentaService {
     public List<Venta> findByUsuarioId(Integer usuarioId){
         return ventaRepository.findByUsuarioId(usuarioId);
     }
-
-    
 
 }
